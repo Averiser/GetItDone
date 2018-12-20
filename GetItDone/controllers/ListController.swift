@@ -51,8 +51,8 @@ class ListController: UIViewController, GDHeaderDelegate, GDNewItemDelegate {
         super.viewDidLoad()
         
         listData = [
-            ToDo(id: 0, title: "first item", status: false),
-            ToDo(id: 1, title: "hey dude", status: true),
+            ToDo(id: 0, title: "first item", status: true),
+            ToDo(id: 1, title: "hey dude", status: false),
             ToDo(id: 2, title: "it's lit fam", status: true)
         ]
         
@@ -104,13 +104,39 @@ extension ListController: UITextFieldDelegate {
 }
 
 extension ListController: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return "To Do"
+        } else {
+            return "Done"
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let titleForHeader = GDLabel(color: .white, size: 20, frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 44))
+        if section == 0 {
+            titleForHeader.text = "To Do"
+        } else {
+            titleForHeader.text = "Done"
+        }
+        return titleForHeader
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 38
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
        return self.listData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CELL_ID, for: indexPath) as! GDListCell
-//        cell.textLabel?.text = self.listData[indexPath.row].title
         cell.toDo = self.listData[indexPath.row]
 
         return cell

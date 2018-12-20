@@ -13,15 +13,23 @@ class GDCheckBox: UIButton {
     var toggled: Bool? {
         didSet {
             if let toggled = toggled {
-                if toggled {
-                    backgroundColor = .green
-                    setImage(UIImage(named: "done-icon"), for: .normal)
-                } else {
-                    backgroundColor = .clear
-                    setImage(UIImage(), for: .normal)
+                UIView.animate(withDuration: 0.2) {
+                    if toggled {
+                        self.backgroundColor = .green
+                        self.setImage(UIImage(named: "done-icon"), for: .normal)
+                    } else {
+                        self.backgroundColor = .clear
+                        self.setImage(UIImage(), for: .normal)
+                    }
                 }
                 
             }
+        }
+    }
+    
+    @objc func toggleStatus() {
+        if let status = toggled {
+            toggled = !status
         }
     }
     
@@ -31,6 +39,8 @@ class GDCheckBox: UIButton {
         
         layer.borderWidth = 1
         layer.borderColor = UIColor.grayZero.cgColor
+        
+        addTarget(self, action: #selector(self.toggleStatus), for: .touchUpInside)
         
     }
     
