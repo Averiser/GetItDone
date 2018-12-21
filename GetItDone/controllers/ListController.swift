@@ -91,7 +91,14 @@ class ListController: UIViewController, GDHeaderDelegate, GDNewItemDelegate {
         listTable.dataSource = self
         listTable.register(GDListCell.self, forCellReuseIdentifier: CELL_ID)
     }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
 }
+
+
 
 extension ListController: UITextFieldDelegate {
 
