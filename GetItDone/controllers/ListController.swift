@@ -10,9 +10,15 @@ import UIKit
 
 class ListController: UIViewController, GDHeaderDelegate, GDNewItemDelegate {
     
+    var popupLocation: CGFloat = 70
     
     func openAddItemPopup() {
-        print("trying to open add item popup view")
+       popup.animateView(transform: CGAffineTransform(translationX: 0, y: popupLocation), duration: 0.3)
+        if popupLocation == 70 {
+            popupLocation = 0
+        } else {
+            popupLocation = 70
+        }
     }
     
     func addItemToList(text: String) {
@@ -47,6 +53,13 @@ class ListController: UIViewController, GDHeaderDelegate, GDNewItemDelegate {
         self.keyboardHeight = keyboardSize.height
     }
     
+    func updateHeaderItemsLeft() {
+         header.itemsLeft = 0
+        self.listData.forEach { (toDo) in
+            if !toDo.status { header.itemsLeft += 1}
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,6 +68,8 @@ class ListController: UIViewController, GDHeaderDelegate, GDNewItemDelegate {
             ToDo(id: 1, title: "hey dude", status: false),
             ToDo(id: 2, title: "it's lit fam", status: true)
         ]
+        
+        self.updateHeaderItemsLeft()
         
         view.backgroundColor = .white
         
@@ -81,6 +96,8 @@ class ListController: UIViewController, GDHeaderDelegate, GDNewItemDelegate {
         popup.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
         popup.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
         popup.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        
+        openAddItemPopup()
         
         popup.textField.delegate = self
         popup.delegate = self
@@ -124,6 +141,7 @@ extension ListController: UITableViewDelegate, UITableViewDataSource, GDListCell
             }
             self.listData = newListData
             self.listTable.reloadData()
+            self.updateHeaderItemsLeft()
         }
     
     func numberOfSections(in tableView: UITableView) -> Int {
