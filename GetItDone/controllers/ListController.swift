@@ -33,14 +33,13 @@ class ListController: UIViewController, GDHeaderDelegate, GDNewItemDelegate {
             self.popup.textField.text = ""
             self.popup.animatePopup()
         }
-        
-
     }
     
     let header = GDHeaderView(title: "Stuff to get done", subtitle: "4 left")
     let popup = GDNewItemPopup()
     
     let tbInset: CGFloat = 16
+    var bgBottom: NSLayoutConstraint!
     
     lazy var bg: UIView = {
         let view = GDGradient()
@@ -94,7 +93,8 @@ class ListController: UIViewController, GDHeaderDelegate, GDNewItemDelegate {
         view.addSubview(bg)
         bg.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
         bg.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 20).isActive = true
-        bg.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100).isActive = true
+        bgBottom = bg.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
+        bgBottom.isActive = true
         bg.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
         
         view.addSubview(listTable)
@@ -124,17 +124,22 @@ class ListController: UIViewController, GDHeaderDelegate, GDNewItemDelegate {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    
 }
-
-
 
 extension ListController: UITextFieldDelegate {
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        bgBottom.constant = -keyboardHeight - 100
+        UIView.animate(withDuration: 0.35) {
+            self.view.layoutIfNeeded()
+        }
         popup.animateView(transform: CGAffineTransform(translationX: 0, y: -keyboardHeight), duration: 0.6)
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
+        self.bgBottom.constant = -100
+        UIView.animate(withDuration: 0.35) {
+            self.view.layoutIfNeeded()
+        }
         popup.animateView(transform: CGAffineTransform(translationX: 0, y: 0), duration: 0.8)
     }
 }
@@ -197,6 +202,7 @@ extension ListController: UITableViewDelegate, UITableViewDataSource, GDListCell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CELL_ID, for: indexPath) as! GDListCell
         cell.delegate = self
+        cell.textField.delegate = self
         var itemsForSection:[ToDo] = []
         self.listData.forEach { (toDo) in
             if indexPath.section == 0 && !toDo.status {
