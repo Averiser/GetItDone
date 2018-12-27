@@ -18,6 +18,7 @@
 		E42A7EFB21C1D67D00AD237D /* GDTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42A7EFA21C1D67D00AD237D /* GDTextField.swift */; };
 		E42CB85E21C1055600853F46 /* protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42CB85D21C1055600853F46 /* protocol.swift */; };
 		E42CB86021C10E4C00853F46 /* GDNewItemPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42CB85F21C10E4C00853F46 /* GDNewItemPopup.swift */; };
+		E43C71FD21D545C300A98434 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43C71FC21D545C300A98434 /* CoreDataManager.swift */; };
 		E445996421B19E06003B00CC /* GDGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E445996321B19E06003B00CC /* GDGradient.swift */; };
 		E445996721B1A828003B00CC /* extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E445996621B1A828003B00CC /* extension.swift */; };
 		E445996A21B30970003B00CC /* GDLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E445996921B30970003B00CC /* GDLabel.swift */; };
@@ -42,6 +43,7 @@
 		E42A7EFA21C1D67D00AD237D /* GDTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GDTextField.swift; sourceTree = "<group>"; };
 		E42CB85D21C1055600853F46 /* protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = protocol.swift; sourceTree = "<group>"; };
 		E42CB85F21C10E4C00853F46 /* GDNewItemPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GDNewItemPopup.swift; sourceTree = "<group>"; };
+		E43C71FC21D545C300A98434 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		E445996321B19E06003B00CC /* GDGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GDGradient.swift; sourceTree = "<group>"; };
 		E445996621B1A828003B00CC /* extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extension.swift; sourceTree = "<group>"; };
 		E445996921B30970003B00CC /* GDLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GDLabel.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				E45E586721AC9F6900D341E0 /* LaunchScreen.storyboard */,
 				E45E586A21AC9F6900D341E0 /* Info.plist */,
 				E45E586221AC9F6800D341E0 /* GetItDone.xcdatamodeld */,
+				E43C71FC21D545C300A98434 /* CoreDataManager.swift */,
 			);
 			path = GetItDone;
 			sourceTree = "<group>";
@@ -230,6 +233,7 @@
 				E41BD4AF21CAB843004F1462 /* GDCheckBox.swift in Sources */,
 				E45E585E21AC9F6800D341E0 /* WelcomeController.swift in Sources */,
 				E45E586421AC9F6800D341E0 /* GetItDone.xcdatamodeld in Sources */,
+				E43C71FD21D545C300A98434 /* CoreDataManager.swift in Sources */,
 				E445996A21B30970003B00CC /* GDLabel.swift in Sources */,
 				E445996721B1A828003B00CC /* extension.swift in Sources */,
 				E42A7EFB21C1D67D00AD237D /* GDTextField.swift in Sources */,
