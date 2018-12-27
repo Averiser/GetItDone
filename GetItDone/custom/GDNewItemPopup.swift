@@ -16,13 +16,13 @@ class GDNewItemPopup: GDGradient {
     var delegate: GDNewItemDelegate?
     
     @objc func handleCancel() {
-        textField.resignFirstResponder()
         animatePopup()
     }
     
     var popupLocation: CGFloat = 70
     
     @objc func animatePopup() {
+        textField.resignFirstResponder()
         self.animateView(transform: CGAffineTransform(translationX: 0, y: popupLocation), duration: 0.3)
         if popupLocation == 70 {
             popupLocation = 0
