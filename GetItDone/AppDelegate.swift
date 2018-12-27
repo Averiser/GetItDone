@@ -24,6 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        }
         
         let wc = WelcomeController()
+        
+//        CoreDataManager.shared.createToDo()
+        
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         window?.rootViewController = wc
