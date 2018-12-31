@@ -26,8 +26,7 @@ class ListController: UIViewController, GDHeaderDelegate, GDNewItemDelegate {
     
     func addItemToList(text: String) {
         if (notInList(text: text)) {
-            let newItem = ToDo(id: self.listData.count, title: text, status: false)
-            self.listData.append(newItem)
+
             self.listTable.reloadData()
             self.updateHeaderItemsLeft()
             self.popup.textField.text = ""
