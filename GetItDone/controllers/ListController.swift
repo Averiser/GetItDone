@@ -26,7 +26,9 @@ class ListController: UIViewController, GDHeaderDelegate, GDNewItemDelegate {
     
     func addItemToList(text: String) {
         if (notInList(text: text)) {
-
+            
+            CoreDataManager.shared.createToDo(id: Double(self.listData.count), title: text, status: false)
+            self.listData = CoreDataManager.shared.fetchToDos() 
             self.listTable.reloadData()
             self.updateHeaderItemsLeft()
             self.popup.textField.text = ""
@@ -119,6 +121,8 @@ class ListController: UIViewController, GDHeaderDelegate, GDNewItemDelegate {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
+    
+    var toDoToUpdate: ToDo?
 }
 
 extension ListController: UITextFieldDelegate {
@@ -134,6 +138,8 @@ extension ListController: UITextFieldDelegate {
         if textField == popup.textField {
             popup.animateView(transform: CGAffineTransform(translationX: 0, y: -keyboardHeight), duration: 0.6)
             heightToAnimate -= 80
+        } else {
+//            self.toDoToUpdate = CoreDataManager.shared.fetchToDo(title: textField.text!)
         }
         self.bgBottom.constant = heightToAnimate
         UIView.animate(withDuration: 0.35) {
@@ -148,7 +154,10 @@ extension ListController: UITextFieldDelegate {
         if textField == popup.textField {
             popup.animateView(transform: CGAffineTransform(translationX: 0, y: 0), duration: 0.8)
         } else {
-            
+            if let toDoToUpdate = self.toDoToUpdate {
+                CoreDataManager.shared.deleteToDo(id: toDoToUpdate.id)
+                CoreDataManager.shared.createToDo(id: toDoToUpdate.id, title: textField.text!, status: toDoToUpdate.status)
+            }
         }
 
     }
@@ -157,15 +166,6 @@ extension ListController: UITextFieldDelegate {
 extension ListController: UITableViewDelegate, UITableViewDataSource, GDListCellDelegate {
     
     func toggleToDo() {
-//        let newListData = self.listData.map { (oldToDo) -> ToDo in
-//            if oldToDo.id == updatedToDo.id {
-//                var newToDo = oldToDo
-//                newToDo.status = updatedToDo.status
-//                newToDo.title = updatedToDo.title
-//                return newToDo
-//                }
-//                return oldToDo
-//            }
             self.listData = CoreDataManager.shared.fetchToDos()
             self.listTable.reloadData()
             self.updateHeaderItemsLeft()
